@@ -8,8 +8,8 @@ const paths = {
     html: './src/**/*.html'
 }
 
-function start (done){
-	console.log('funciona');
+function start(done) {
+    console.log('funciona');
     done();
 }
 
@@ -32,9 +32,9 @@ function html() {
 }
 
 var watcher = gulp.watch(paths.html);
-	watcher.on('change', function(){
-		html();
-		server.reload();
-	})
+watcher.on('change', function () {
+    html();
+    server.reload();
+})
 
 gulp.task('default', gulp.series(start, initServer, html));
