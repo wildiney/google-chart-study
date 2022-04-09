@@ -5,296 +5,299 @@
     <title>Gantt Chart</title>
     <meta charset="utf-8">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
+        integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
     <style>
-    h2{
-    	margin-top:30px;
-    	margin-bottom: 15px;
-    }
-    .card {
-        margin-bottom: 20px;
-    }
+        h2 {
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
 
-    .card-header {
-        text-transform: uppercase;
-    }
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            text-transform: uppercase;
+        }
     </style>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-    google.charts.load('current', { 'packages': ['gantt'], 'language': 'pt_BR' });
-    google.charts.setOnLoadCallback(drawChart);
+        google.charts.load('current', { 'packages': ['gantt'], 'language': 'pt_BR' });
+        google.charts.setOnLoadCallback(drawChart);
 
-    function daysToMilliseconds(days) {
-        return days * 24 * 60 * 60 * 1000;
-    }
-
-    function drawChart() {
-        var options = {
-            height: '300',
-            innerGridHorizLine:{
-            	stroke: '#ffe0b2',
-            	strokeWidth: 2
-            },
-            shadowEnabled: true,
-            gantt: {
-                criticalPathEnabled: true,
-                criticalPathStyle: {
-                    stroke: '#e64a19',
-                    strokeWidth: 5
-                }
-            }
-        }
-        var options200 = {
-            height: '200',
-            innerGridHorizLine:{
-            	stroke: '#ffe0b2',
-            	strokeWidth: 2
-            },
-            shadowEnabled: true,
-            gantt: {
-                criticalPathEnabled: true,
-                criticalPathStyle: {
-                    stroke: '#e64a19',
-                    strokeWidth: 5
-                }
-            }
-
-        }
-        var options250 = {
-            height: '230',
-            innerGridHorizLine:{
-            	stroke: '#ffe0b2',
-            	strokeWidth: 2
-            },
-            shadowEnabled: true,
-            gantt: {
-                criticalPathEnabled: true,
-                criticalPathStyle: {
-                    stroke: '#e64a19',
-                    strokeWidth: 5
-                }
-            }
-        }
-        var cg_options = {
-            height: '400',
-            innerGridHorizLine:{
-            	stroke: '#ffe0b2',
-            	strokeWidth: 2
-            },
-            shadowEnabled: true,
-            gantt: {
-                criticalPathEnabled: true,
-                criticalPathStyle: {
-                    stroke: '#e64a19',
-                    strokeWidth: 5
-                }
-            }
+        function daysToMilliseconds(days) {
+            return days * 24 * 60 * 60 * 1000;
         }
 
-        // CHARTS
+        function drawChart() {
+            var options = {
+                height: '350',
+                innerGridHorizLine: {
+                    stroke: '#ffe0b2',
+                    strokeWidth: 2
+                },
+                shadowEnabled: true,
+                gantt: {
+                    criticalPathEnabled: true,
+                    criticalPathStyle: {
+                        stroke: '#e64a19',
+                        strokeWidth: 5
+                    }
+                }
+            }
+            var options200 = {
+                height: '200',
+                innerGridHorizLine: {
+                    stroke: '#ffe0b2',
+                    strokeWidth: 2
+                },
+                shadowEnabled: true,
+                gantt: {
+                    criticalPathEnabled: true,
+                    criticalPathStyle: {
+                        stroke: '#e64a19',
+                        strokeWidth: 5
+                    }
+                }
 
-        // CALENDÁRIO GERAL
-        var cg = new google.visualization.DataTable();
-        cg.addColumn('string', 'ID');
-        cg.addColumn('string', 'Task');
-        cg.addColumn('string', 'Departamento');
-        cg.addColumn('date', 'Inicio');
-        cg.addColumn('date', 'Fim');
-        cg.addColumn('number', 'Duração');
-        cg.addColumn('number', 'Completado');
-        cg.addColumn('string', 'Dependências');
+            }
+            var options250 = {
+                height: '230',
+                innerGridHorizLine: {
+                    stroke: '#ffe0b2',
+                    strokeWidth: 2
+                },
+                shadowEnabled: true,
+                gantt: {
+                    criticalPathEnabled: true,
+                    criticalPathStyle: {
+                        stroke: '#e64a19',
+                        strokeWidth: 5
+                    }
+                }
+            }
+            var cg_options = {
+                height: '400',
+                innerGridHorizLine: {
+                    stroke: '#ffe0b2',
+                    strokeWidth: 2
+                },
+                shadowEnabled: true,
+                gantt: {
+                    criticalPathEnabled: true,
+                    criticalPathStyle: {
+                        stroke: '#e64a19',
+                        strokeWidth: 5
+                    }
+                }
+            }
 
-        cg.addRows([
-            ['1', 'Marchinhas da Indra', "CI", new Date(2018, 0, 8), new Date(2018, 1, 23), null, 0, null],
-            ['2', 'Dia das Mães', "CI", new Date(2018, 4, 7), new Date(2018, 4, 12), null, null, null],
-            ['3', 'Quiz da Copa', "CI", new Date(2018, 4, 20), new Date(2018, 6, 23), null, null, null],
-            ['4', 'Dia dos Pais', "CI", new Date(2018, 7, 1), new Date(2018, 7, 11), null, null, null],
-            ['5', 'Concurso de Desenho Infantil', "CI", new Date(2018, 8, 10), new Date(2018, 9, 21), null, null, null],
-            ['6', 'Outubro Rosa', "CI", new Date(2018, 9, 2), new Date(2018, 9, 20), null, null, null],
-            ['7', 'Dia do Profissional de TI', "CI", new Date(2018, 9, 9), new Date(2018, 9, 20), null, null, null],
-            ['8', 'Novembro Azul', "CI", new Date(2018, 10, 6), new Date(2018, 10, 17), null, null, null],
-        ]);
+            // CHARTS
 
-        var chartCG = new google.visualization.Gantt(document.getElementById('cg'));
-        chartCG.draw(cg, cg_options);
+            // CALENDÁRIO GERAL
+            var cg = new google.visualization.DataTable();
+            cg.addColumn('string', 'ID');
+            cg.addColumn('string', 'Task');
+            cg.addColumn('string', 'Departamento');
+            cg.addColumn('date', 'Inicio');
+            cg.addColumn('date', 'Fim');
+            cg.addColumn('number', 'Duração');
+            cg.addColumn('number', 'Completado');
+            cg.addColumn('string', 'Dependências');
 
-        // MARCHINHAS DA INDRA
-        var mi = new google.visualization.DataTable();
-        mi.addColumn('string', 'ID');
-        mi.addColumn('string', 'Task');
-        mi.addColumn('string', 'Departamento');
-        mi.addColumn('date', 'Inicio');
-        mi.addColumn('date', 'Fim');
-        mi.addColumn('number', 'Duração');
-        mi.addColumn('number', 'Completado');
-        mi.addColumn('string', 'Dependências');
+            cg.addRows([
+                ['1', 'Marchinhas', "CI", new Date(2018, 0, 8), new Date(2018, 1, 23), null, 0, null],
+                ['2', 'Dia das Mães', "CI", new Date(2018, 4, 7), new Date(2018, 4, 12), null, null, null],
+                ['3', 'Quiz da Copa', "CI", new Date(2018, 4, 20), new Date(2018, 6, 12), null, null, null],
+                ['4', 'Dia dos Pais', "CI", new Date(2018, 7, 1), new Date(2018, 7, 11), null, null, null],
+                ['5', 'Concurso de Desenho Infantil', "CI", new Date(2018, 8, 10), new Date(2018, 9, 21), null, null, null],
+                ['6', 'Outubro Rosa', "CI", new Date(2018, 9, 2), new Date(2018, 9, 20), null, null, null],
+                ['7', 'Dia do Profissional de TI', "CI", new Date(2018, 9, 9), new Date(2018, 9, 20), null, null, null],
+                ['8', 'Novembro Azul', "CI", new Date(2018, 10, 6), new Date(2018, 10, 17), null, null, null],
+            ]);
 
-        mi.addRows([
-            ['1', 'Planejamento', "CI", new Date(2018, 0, 8), new Date(2018, 0, 10), null, 20, null],
-            ['2', 'Criação das Peças', "Criação", new Date(2018, 0, 11), new Date(2018, 0, 18), null, null, "1"],
-            ['3', 'Divulgação', "CI", new Date(2018, 0, 19), new Date(2018, 0, 20), null, null, "2"],
-            ['4', 'Participação', "Externo", new Date(2018, 0, 22), new Date(2018, 1, 13), null, null, "2"],
-            ['5', 'Eleição', "CI", new Date(2018, 1, 14), new Date(2018, 1, 16), null, null, "4"],
-            ['6', 'Premiação', "CI", new Date(2018, 1, 19), new Date(2018, 1, 23), null, null, "5"],
-        ]);
+            var chartCG = new google.visualization.Gantt(document.getElementById('cg'));
+            chartCG.draw(cg, cg_options);
 
-        var chartMI = new google.visualization.Gantt(document.getElementById('mi'));
-        chartMI.draw(mi, options);
+            // MARCHINHAS
+            var mi = new google.visualization.DataTable();
+            mi.addColumn('string', 'ID');
+            mi.addColumn('string', 'Task');
+            mi.addColumn('string', 'Departamento');
+            mi.addColumn('date', 'Inicio');
+            mi.addColumn('date', 'Fim');
+            mi.addColumn('number', 'Duração');
+            mi.addColumn('number', 'Completado');
+            mi.addColumn('string', 'Dependências');
 
-        // DIA DAS MÃES
-        var dm = new google.visualization.DataTable();
-        dm.addColumn('string', 'ID');
-        dm.addColumn('string', 'Task');
-        dm.addColumn('string', 'Departamento');
-        dm.addColumn('date', 'Inicio');
-        dm.addColumn('date', 'Fim');
-        dm.addColumn('number', 'Duração');
-        dm.addColumn('number', 'Completado');
-        dm.addColumn('string', 'Dependências');
+            mi.addRows([
+                ['1', 'Planejamento', "CI", new Date(2018, 0, 8), new Date(2018, 0, 10), null, 20, null],
+                ['2', 'Criação das Peças', "Criação", new Date(2018, 0, 11), new Date(2018, 0, 18), null, null, "1"],
+                ['3', 'Divulgação', "CI", new Date(2018, 0, 19), new Date(2018, 0, 20), null, null, "2"],
+                ['4', 'Participação', "Externo", new Date(2018, 0, 22), new Date(2018, 1, 13), null, null, "2"],
+                ['5', 'Eleição', "CI", new Date(2018, 1, 14), new Date(2018, 1, 16), null, null, "4"],
+                ['6', 'Premiação', "CI", new Date(2018, 1, 19), new Date(2018, 1, 23), null, null, "5"],
+            ]);
 
-        dm.addRows([
-            ['1', 'Planejamento', "CI", new Date(2018, 4, 7), new Date(2018, 4, 8), null, 0, null],
-            ['2', 'Criação das Peças', "Criação", new Date(2018, 4, 8), new Date(2018, 4, 10), null, null, "1"],
-            ['3', 'Divulgação', "CI", new Date(2018, 4, 11), new Date(2018, 4, 12), null, null, "2"],
-        ]);
+            var chartMI = new google.visualization.Gantt(document.getElementById('mi'));
+            chartMI.draw(mi, options);
 
-        var chartDM = new google.visualization.Gantt(document.getElementById('dm'));
-        chartDM.draw(dm, options200);
+            // DIA DAS MÃES
+            var dm = new google.visualization.DataTable();
+            dm.addColumn('string', 'ID');
+            dm.addColumn('string', 'Task');
+            dm.addColumn('string', 'Departamento');
+            dm.addColumn('date', 'Inicio');
+            dm.addColumn('date', 'Fim');
+            dm.addColumn('number', 'Duração');
+            dm.addColumn('number', 'Completado');
+            dm.addColumn('string', 'Dependências');
 
-        // QUIZ DA COPA
-        var qc = new google.visualization.DataTable();
-        qc.addColumn('string', 'ID');
-        qc.addColumn('string', 'Task');
-        qc.addColumn('string', 'Departamento');
-        qc.addColumn('date', 'Inicio');
-        qc.addColumn('date', 'Fim');
-        qc.addColumn('number', 'Duração');
-        qc.addColumn('number', 'Completado');
-        qc.addColumn('string', 'Dependências');
+            dm.addRows([
+                ['1', 'Planejamento', "CI", new Date(2018, 4, 7), new Date(2018, 4, 8), null, 0, null],
+                ['2', 'Criação das Peças', "Criação", new Date(2018, 4, 8), new Date(2018, 4, 10), null, null, "1"],
+                ['3', 'Divulgação', "CI", new Date(2018, 4, 11), new Date(2018, 4, 12), null, null, "2"],
+            ]);
 
-        qc.addRows([
-            ['1', 'Planejamento', "CI", new Date(2018, 4, 20), new Date(2018, 4, 24), null, 0, null],
-            ['2', 'Criação das Peças', "Criação", new Date(2018, 4, 27), new Date(2018, 5, 8), null, 0, "1"],
-            ['3', 'Divulgação', "CI", new Date(2018, 5, 11), new Date(2018, 5, 12), null, 0, "2"],
-            ['4', 'Participação', "Externo", new Date(2018, 5, 13), new Date(2018, 6, 15), null, 0, "2"],
-            ['5', 'Eleição', "CI", new Date(2018, 6, 16), new Date(2018, 6, 18), null, 0, "4"],
-            ['6', 'Premiação', "CI", new Date(2018, 6, 19), new Date(2018, 6, 23), null, 0, "5"],
-        ]);
+            var chartDM = new google.visualization.Gantt(document.getElementById('dm'));
+            chartDM.draw(dm, options200);
 
-        var chartQC = new google.visualization.Gantt(document.getElementById('qc'));
-        chartQC.draw(qc, options);
+            // QUIZ DA COPA
+            var qc = new google.visualization.DataTable();
+            qc.addColumn('string', 'ID');
+            qc.addColumn('string', 'Task');
+            qc.addColumn('string', 'Departamento');
+            qc.addColumn('date', 'Inicio');
+            qc.addColumn('date', 'Fim');
+            qc.addColumn('number', 'Duração');
+            qc.addColumn('number', 'Completado');
+            qc.addColumn('string', 'Dependências');
 
-        // DIA DOS PAIS
-        var dp = new google.visualization.DataTable();
-        dp.addColumn('string', 'ID');
-        dp.addColumn('string', 'Task');
-        dp.addColumn('string', 'Departamento');
-        dp.addColumn('date', 'Inicio');
-        dp.addColumn('date', 'Fim');
-        dp.addColumn('number', 'Duração');
-        dp.addColumn('number', 'Completado');
-        dp.addColumn('string', 'Dependências');
+            qc.addRows([
+                ['1', 'Planejamento', "CI", new Date(2018, 3, 20), new Date(2018, 3, 24), null, 0, null],
+                ['2', 'Criação das Peças', "Criação", new Date(2018, 3, 25), new Date(2018, 4, 11), null, 0, "1"],
+                ['3', 'Quiz', "Criação", new Date(2018, 3, 25), new Date(2018, 4, 3), null, 0, "1"],
+                ['4', 'Troca Figurinha', "Criação", new Date(2018, 4, 4), new Date(2018, 4, 11), null, 0, "3"],
+                ['5', 'Divulgação', "CI", new Date(2018, 4, 14), new Date(2018, 4, 18), null, 0, "4"],
+                ['6', 'Participação', "Externo", new Date(2018, 4, 21), new Date(2018, 5, 8), null, 0, "4"],
+                ['7', 'Premiação', "CI", new Date(2018, 5, 11), new Date(2018, 5, 12), null, 0, "6"],
+            ]);
 
-        dp.addRows([
-            ['1', 'Planejamento', "CI", new Date(2018, 7, 1), new Date(2018, 7, 3), null, 0, null],
-            ['2', 'Criação das Peças', "Criação", new Date(2018, 7, 6), new Date(2018, 7, 9), null, null, "1"],
-            ['3', 'Divulgação', "CI", new Date(2018, 7, 10), new Date(2018, 7, 11), null, null, "2"],
-        ]);
+            var chartQC = new google.visualization.Gantt(document.getElementById('qc'));
+            chartQC.draw(qc, options);
 
-        var chartDP = new google.visualization.Gantt(document.getElementById('dp'));
-        chartDP.draw(dp, options200);
+            // DIA DOS PAIS
+            var dp = new google.visualization.DataTable();
+            dp.addColumn('string', 'ID');
+            dp.addColumn('string', 'Task');
+            dp.addColumn('string', 'Departamento');
+            dp.addColumn('date', 'Inicio');
+            dp.addColumn('date', 'Fim');
+            dp.addColumn('number', 'Duração');
+            dp.addColumn('number', 'Completado');
+            dp.addColumn('string', 'Dependências');
 
-        // CONCURSO DE DESENHO INFANTIL
-        var cd = new google.visualization.DataTable();
-        cd.addColumn('string', 'ID');
-        cd.addColumn('string', 'Task');
-        cd.addColumn('string', 'Departamento');
-        cd.addColumn('date', 'Inicio');
-        cd.addColumn('date', 'Fim');
-        cd.addColumn('number', 'Duração');
-        cd.addColumn('number', 'Completado');
-        cd.addColumn('string', 'Dependências');
+            dp.addRows([
+                ['1', 'Planejamento', "CI", new Date(2018, 7, 1), new Date(2018, 7, 3), null, 0, null],
+                ['2', 'Criação das Peças', "Criação", new Date(2018, 7, 6), new Date(2018, 7, 9), null, null, "1"],
+                ['3', 'Divulgação', "CI", new Date(2018, 7, 10), new Date(2018, 7, 11), null, null, "2"],
+            ]);
 
-        cd.addRows([
-            ['1', 'Planejamento', "CI", new Date(2018, 8, 10), new Date(2018, 8, 14), null, 0, null],
-            ['2', 'Criação das Peças', "Criação", new Date(2018, 8, 17), new Date(2018, 8, 20), null, 0, "1"],
-            ['3', 'Divulgação', "CI", new Date(2018, 8, 21), new Date(2018, 8, 22), null, 0, "2"],
-            ['4', 'Participação', "Externo", new Date(2018, 8, 24), new Date(2018, 9, 11), null, 0, "2"],
-            ['5', 'Eleição', "CI", new Date(2018, 9, 15), new Date(2018, 9, 18), null, 0, "4"],
-            ['6', 'Premiação', "CI", new Date(2018, 9, 19), new Date(2018, 9, 21), null, 0, "5"],
-        ]);
+            var chartDP = new google.visualization.Gantt(document.getElementById('dp'));
+            chartDP.draw(dp, options200);
 
-        var chartCD = new google.visualization.Gantt(document.getElementById('cd'));
-        chartCD.draw(cd, options);
+            // CONCURSO DE DESENHO INFANTIL
+            var cd = new google.visualization.DataTable();
+            cd.addColumn('string', 'ID');
+            cd.addColumn('string', 'Task');
+            cd.addColumn('string', 'Departamento');
+            cd.addColumn('date', 'Inicio');
+            cd.addColumn('date', 'Fim');
+            cd.addColumn('number', 'Duração');
+            cd.addColumn('number', 'Completado');
+            cd.addColumn('string', 'Dependências');
 
-        // OUTUBRO ROSA
-        var or = new google.visualization.DataTable();
-        or.addColumn('string', 'ID');
-        or.addColumn('string', 'Task');
-        or.addColumn('string', 'Departamento');
-        or.addColumn('date', 'Inicio');
-        or.addColumn('date', 'Fim');
-        or.addColumn('number', 'Duração');
-        or.addColumn('number', 'Completado');
-        or.addColumn('string', 'Dependências');
+            cd.addRows([
+                ['1', 'Planejamento', "CI", new Date(2018, 8, 10), new Date(2018, 8, 14), null, 0, null],
+                ['2', 'Criação das Peças', "Criação", new Date(2018, 8, 17), new Date(2018, 8, 20), null, 0, "1"],
+                ['3', 'Divulgação', "CI", new Date(2018, 8, 21), new Date(2018, 8, 22), null, 0, "2"],
+                ['4', 'Participação', "Externo", new Date(2018, 8, 24), new Date(2018, 9, 11), null, 0, "2"],
+                ['5', 'Eleição', "CI", new Date(2018, 9, 15), new Date(2018, 9, 18), null, 0, "4"],
+                ['6', 'Premiação', "CI", new Date(2018, 9, 19), new Date(2018, 9, 21), null, 0, "5"],
+            ]);
 
-        or.addRows([
-            ['1', 'Planejamento', "CI", new Date(2018, 9, 2), new Date(2018, 9, 5), null, 0, null],
-            ['2', 'Criação das Peças', "Criação", new Date(2018, 9, 9), new Date(2018, 9, 12), null, null, "1"],
-            ['3', 'Divulgação', "CI", new Date(2018, 9, 15), new Date(2018, 9, 16), null, null, "2"],
-            ['4', 'Foto', "CI", new Date(2018, 9, 19), new Date(2018, 9, 20), null, null, "3"],
-        ]);
+            var chartCD = new google.visualization.Gantt(document.getElementById('cd'));
+            chartCD.draw(cd, options);
 
-        var chartOR = new google.visualization.Gantt(document.getElementById('or'));
-        chartOR.draw(or, options250);
+            // OUTUBRO ROSA
+            var or = new google.visualization.DataTable();
+            or.addColumn('string', 'ID');
+            or.addColumn('string', 'Task');
+            or.addColumn('string', 'Departamento');
+            or.addColumn('date', 'Inicio');
+            or.addColumn('date', 'Fim');
+            or.addColumn('number', 'Duração');
+            or.addColumn('number', 'Completado');
+            or.addColumn('string', 'Dependências');
 
-        //DIA DO PROFISSIONAL DE TI
-        var dpti = new google.visualization.DataTable();
-        dpti.addColumn('string', 'ID');
-        dpti.addColumn('string', 'Task');
-        dpti.addColumn('string', 'Departamento');
-        dpti.addColumn('date', 'Inicio');
-        dpti.addColumn('date', 'Fim');
-        dpti.addColumn('number', 'Duração');
-        dpti.addColumn('number', 'Completado');
-        dpti.addColumn('string', 'Dependências');
+            or.addRows([
+                ['1', 'Planejamento', "CI", new Date(2018, 9, 2), new Date(2018, 9, 5), null, 0, null],
+                ['2', 'Criação das Peças', "Criação", new Date(2018, 9, 9), new Date(2018, 9, 12), null, null, "1"],
+                ['3', 'Divulgação', "CI", new Date(2018, 9, 15), new Date(2018, 9, 16), null, null, "2"],
+                ['4', 'Foto', "CI", new Date(2018, 9, 19), new Date(2018, 9, 20), null, null, "3"],
+            ]);
 
-        dpti.addRows([
-            ['1', 'Planejamento', "CI", new Date(2018, 9, 9), new Date(2018, 9, 12), null, 0, null],
-            ['2', 'Criação das Peças', "Criação", new Date(2018, 9, 15), new Date(2018, 9, 18), null, null, "1"],
-            ['3', 'Divulgação', "CI", new Date(2018, 9, 19), new Date(2018, 9, 20), null, null, "2"],
-        ]);
+            var chartOR = new google.visualization.Gantt(document.getElementById('or'));
+            chartOR.draw(or, options250);
 
-        var chartDPTI = new google.visualization.Gantt(document.getElementById('dpti'));
-        chartDPTI.draw(dpti, options200);
+            //DIA DO PROFISSIONAL DE TI
+            var dpti = new google.visualization.DataTable();
+            dpti.addColumn('string', 'ID');
+            dpti.addColumn('string', 'Task');
+            dpti.addColumn('string', 'Departamento');
+            dpti.addColumn('date', 'Inicio');
+            dpti.addColumn('date', 'Fim');
+            dpti.addColumn('number', 'Duração');
+            dpti.addColumn('number', 'Completado');
+            dpti.addColumn('string', 'Dependências');
 
-        // NOVEMBRO AZUL
-        var na = new google.visualization.DataTable();
-        na.addColumn('string', 'ID');
-        na.addColumn('string', 'Task');
-        na.addColumn('string', 'Departamento');
-        na.addColumn('date', 'Inicio');
-        na.addColumn('date', 'Fim');
-        na.addColumn('number', 'Duração');
-        na.addColumn('number', 'Completado');
-        na.addColumn('string', 'Dependências');
+            dpti.addRows([
+                ['1', 'Planejamento', "CI", new Date(2018, 9, 9), new Date(2018, 9, 12), null, 0, null],
+                ['2', 'Criação das Peças', "Criação", new Date(2018, 9, 15), new Date(2018, 9, 18), null, null, "1"],
+                ['3', 'Divulgação', "CI", new Date(2018, 9, 19), new Date(2018, 9, 20), null, null, "2"],
+            ]);
 
-        na.addRows([
-            ['1', 'Planejamento', "CI", new Date(2018, 10, 6), new Date(2018, 10, 9), null, 0, null],
-            ['2', 'Criação das Peças', "Criação", new Date(2018, 10, 12), new Date(2018, 10, 15), null, null, "1"],
-            ['3', 'Divulgação', "CI", new Date(2018, 10, 16), new Date(2018, 10, 17), null, null, "2"],
-        ]);
+            var chartDPTI = new google.visualization.Gantt(document.getElementById('dpti'));
+            chartDPTI.draw(dpti, options200);
 
-        var chartNA = new google.visualization.Gantt(document.getElementById('na'));
-        chartNA.draw(na, options200);
+            // NOVEMBRO AZUL
+            var na = new google.visualization.DataTable();
+            na.addColumn('string', 'ID');
+            na.addColumn('string', 'Task');
+            na.addColumn('string', 'Departamento');
+            na.addColumn('date', 'Inicio');
+            na.addColumn('date', 'Fim');
+            na.addColumn('number', 'Duração');
+            na.addColumn('number', 'Completado');
+            na.addColumn('string', 'Dependências');
 
-    }
+            na.addRows([
+                ['1', 'Planejamento', "CI", new Date(2018, 10, 6), new Date(2018, 10, 9), null, 0, null],
+                ['2', 'Criação das Peças', "Criação", new Date(2018, 10, 12), new Date(2018, 10, 15), null, null, "1"],
+                ['3', 'Divulgação', "CI", new Date(2018, 10, 16), new Date(2018, 10, 17), null, null, "2"],
+            ]);
+
+            var chartNA = new google.visualization.Gantt(document.getElementById('na'));
+            chartNA.draw(na, options200);
+
+        }
     </script>
 </head>
 
 <body>
     <div class="container">
-    	<h2>CRONOGRAMA DE AÇÕES</h2>
+        <h2>CRONOGRAMA DE AÇÕES</h2>
         <div class="card bg-info text-white">
             <div class="card-block">
                 <div class="card-header">CALENDÁRIO GERAL</div>
@@ -304,7 +307,7 @@
         </div>
         <div class="card bg-info text-white">
             <div class="card-block">
-                <div class="card-header">Marchinhas da Indra</div>
+                <div class="card-header">Marchinhas</div>
                 <div id="mi">
                 </div>
             </div>
